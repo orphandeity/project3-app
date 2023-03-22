@@ -27,17 +27,25 @@ const ProjectList = () => {
   }
 
   return (
-    <ul className="flex max-w-md flex-col gap-2">
-      {projects.map((project) => (
-        <li
-          key={project.id}
-          className="cursor-pointer rounded border bg-white p-2"
-          onClick={() => handleSelectProject(project.id)}
-        >
-          <p>{project.title}</p>
+    <>
+      <h2 className="text-sm font-semibold uppercase">
+        All Boards <span>({projects.length})</span>
+      </h2>
+      <ul className="flex max-w-md flex-col gap-2">
+        {projects.map((project) => (
+          <li
+            key={project.id}
+            className="cursor-pointer rounded border bg-white p-2"
+            onClick={() => handleSelectProject(project.id)}
+          >
+            <p>{project.title}</p>
+          </li>
+        ))}
+        <li className="cursor-pointer rounded border bg-white p-2">
+          + Add New Board
         </li>
-      ))}
-    </ul>
+      </ul>
+    </>
   );
 };
 
