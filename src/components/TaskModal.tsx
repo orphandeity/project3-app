@@ -1,4 +1,3 @@
-import type { TaskCardProps } from "./TaskCard";
 import {
   Dialog,
   DialogOverlay,
@@ -8,20 +7,26 @@ import {
   DialogTrigger,
 } from "@radix-ui/react-dialog";
 import TaskCard from "./TaskCard";
+import { api } from "~/utils/api";
 
-/**
- *  TODO:
- *  make api routes for update task & update subtask
- */
+// TODO:
+// make api routes for update task & update subtask
 
-type TaskModalProps = TaskCardProps;
+interface TaskModalProps {
+  taskId: string;
+}
 
-const TaskModal = ({ task, subtasks }: TaskModalProps) => {
+const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
+  // api query: get task
+  const { data: task } = api.task.getTaskByTaskId.useQuery({ taskId });
+
+  if (!task) return null;
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <li>
-          <TaskCard task={task} subtasks={subtasks} />
+          <TaskCard taskId={task.id} />
         </li>
       </DialogTrigger>
       <DialogOverlay className="bg-black/05 fixed top-0 left-0 right-0 bottom-0 grid place-content-center overflow-y-auto backdrop-blur-sm">
@@ -35,7 +40,7 @@ const TaskModal = ({ task, subtasks }: TaskModalProps) => {
           <div>
             <h2 className="text-sm font-semibold leading-none">Subtasks</h2>
             <ul>
-              {subtasks.map((s) => (
+              {task.subtasks.map((s) => (
                 <li key={s.id} className="flex items-center gap-2">
                   <input type="checkbox" checked={s.isComplete} />
                   <p className="text-sm text-slate-600">{s.title}</p>

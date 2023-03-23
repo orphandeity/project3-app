@@ -10,6 +10,17 @@ export const taskRouter = createTRPCRouter({
         where: {
           projectId: input.projectId,
         },
+      });
+    }),
+
+  // Get task by id
+  getTaskByTaskId: protectedProcedure
+    .input(z.object({ taskId: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.task.findFirst({
+        where: {
+          id: input.taskId,
+        },
         include: {
           subtasks: true,
         },

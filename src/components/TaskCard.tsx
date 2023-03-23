@@ -1,21 +1,33 @@
-import type { Subtask, Task } from "@prisma/client";
+import { api } from "~/utils/api";
 
-export interface TaskCardProps {
-  task: Task;
-  subtasks: Subtask[];
+interface TaskCardProps {
+  taskId: string;
 }
 
-const TaskCard = ({ task, subtasks }: TaskCardProps) => {
-  const totalSubtasks = subtasks.length;
-  const completedSubtasks = subtasks.filter((s) => s.isComplete).length;
+const TaskCard: React.FunctionComponent<TaskCardProps> = ({ taskId }) => {
+  // api query: get task
+  const { data: task, isLoading } = api.task.getTaskByTaskId.useQuery({
+    taskId,
+  });
+
+  if (!task) return null;
+
+  // subtask stats
+  const totalSubtasks = task.subtasks.length;
+  const completedSubtasks = task?.subtasks.filter((s) => s.isComplete).length;
 
   return (
-    <div className="rounded bg-slate-600 px-4 py-2 shadow-md">
-      <h3 className="font-semibold">{task.title}</h3>
-      <p className="text-sm text-slate-400">{task.description}</p>
-      <p className="text-xs text-slate-800">
-        {completedSubtasks} of {totalSubtasks} subtasks
-      </p>
+    <div className="cursor-pointer rounded bg-white p-4 shadow-md transition-all hover:scale-105 hover:shadow-lg active:scale-95 dark:bg-slate-600">
+      {isLoading ? (
+        <p className="animate-pulse text-red-400">loading...</p>
+      ) : (
+        <>
+          <h3 className="font-semibold">{task.title}</h3>
+          <p className="text-xs text-slate-400">
+            {completedSubtasks} of {totalSubtasks} subtasks
+          </p>
+        </>
+      )}
     </div>
   );
 };
