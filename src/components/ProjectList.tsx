@@ -1,6 +1,9 @@
 import { useContext } from "react";
 import { AppContext } from "~/context/app";
 import { api } from "~/utils/api";
+import { Layout } from "lucide-react";
+import { clsx } from "clsx";
+import CreateProject from "./CreateProject";
 
 const ProjectList = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -27,25 +30,27 @@ const ProjectList = () => {
   }
 
   return (
-    <>
-      <h2 className="text-sm font-semibold uppercase">
+    <div>
+      <h2 className="px-4 text-sm font-semibold uppercase">
         All Boards <span>({projects.length})</span>
       </h2>
-      <ul className="flex max-w-md flex-col gap-2">
+      <ul className="mr-4 flex max-w-md flex-col gap-2">
         {projects.map((project) => (
           <li
             key={project.id}
-            className="cursor-pointer rounded border bg-white p-2"
+            className={clsx([
+              "flex cursor-pointer items-center gap-2 rounded-r-full px-4 py-2",
+              project.id === state.projectId && "bg-indigo-300",
+            ])}
             onClick={() => handleSelectProject(project.id)}
           >
+            <Layout />
             <p>{project.title}</p>
           </li>
         ))}
-        <li className="cursor-pointer rounded border bg-white p-2">
-          + Add New Board
-        </li>
+        <CreateProject />
       </ul>
-    </>
+    </div>
   );
 };
 

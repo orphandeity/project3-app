@@ -9,6 +9,8 @@ type AppActionType = {
   payload?: { projectId: string };
 };
 
+// Component Props
+
 // Add New Task form state
 type NewTaskState = {
   title: string;

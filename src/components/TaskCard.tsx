@@ -1,6 +1,6 @@
 import type { Subtask, Task } from "@prisma/client";
 
-interface TaskCardProps {
+export interface TaskCardProps {
   task: Task;
   subtasks: Subtask[];
 }

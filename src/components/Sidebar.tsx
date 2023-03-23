@@ -1,12 +1,27 @@
+import Link from "next/link";
 import ProjectList from "./ProjectList";
+import { Library, SidebarClose, SidebarOpen } from "lucide-react";
 
 const Sidebar = () => {
   return (
-    <aside className="border-r px-2">
-      <div className="grid h-16 place-content-center">
+    <aside className="flex flex-col border-r border-slate-300 bg-slate-200">
+      <Link
+        href={"/"}
+        className="flex h-16 cursor-default items-center justify-center border-b border-slate-300"
+      >
+        <Library size={30} />
         <h1 className="text-3xl font-bold">ProjecT3</h1>
+      </Link>
+      <div className="flex flex-1 flex-col justify-between">
+        <ProjectList />
+        <menu className="p-4">
+          {/**
+           * TODO: dark mode toggle
+           * TODO: hide sidebar button
+           */}
+          <SidebarClose />
+        </menu>
       </div>
-      <ProjectList />
     </aside>
   );
 };

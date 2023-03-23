@@ -12,6 +12,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        {/**
+         *  TODO:
+         *  landing page
+         *  authenticate dashboard page
+         */}
         <h1>Home Page</h1>
         <Link href={"/dashboard"}>Dashboard</Link>
         <Signin />
