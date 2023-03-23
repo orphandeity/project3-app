@@ -10,26 +10,37 @@ import { api } from "~/utils/api";
 import { Layout } from "lucide-react";
 
 const CreateProject = () => {
+  const [open, setOpen] = useState<boolean>(false);
+
   const [title, setTitle] = useState<string>("");
 
-  const { mutate } = api.project.createProject.useMutation();
+  const { mutate } = api.project.createProject.useMutation(); // create project api
 
   function handleAddProject(e: React.FormEvent) {
     e.preventDefault();
     mutate({ title });
     setTitle("");
+    setOpen(false);
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <li className="flex cursor-pointer items-center gap-2 px-4 py-2 text-indigo-700">
-          <Layout />
+        <li
+          role="button"
+          onClick={() => setOpen(true)}
+          className="flex cursor-pointer items-center gap-2 px-4 py-2 text-sm font-semibold text-indigo-500"
+        >
+          <Layout size={16} />
           <p>+ Add New Board</p>
         </li>
       </DialogTrigger>
       <DialogOverlay className="bg-black/05 fixed top-0 left-0 right-0 bottom-0 grid place-content-center overflow-y-auto backdrop-blur-sm">
-        <DialogContent aria-describedby={undefined}>
+        <DialogContent
+          aria-describedby={undefined}
+          onEscapeKeyDown={() => setOpen(false)}
+          onInteractOutside={() => setOpen(false)}
+        >
           <form
             onSubmit={(e) => handleAddProject(e)}
             className="flex max-w-md flex-col gap-4 rounded bg-white p-8 shadow"

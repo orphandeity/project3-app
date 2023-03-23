@@ -31,7 +31,7 @@ const ProjectList = () => {
 
   return (
     <div>
-      <h2 className="px-4 text-sm font-semibold uppercase">
+      <h2 className="px-4 text-xs font-semibold uppercase">
         All Boards <span>({projects.length})</span>
       </h2>
       <ul className="mr-4 flex max-w-md flex-col gap-2">
@@ -39,12 +39,12 @@ const ProjectList = () => {
           <li
             key={project.id}
             className={clsx([
-              "flex cursor-pointer items-center gap-2 rounded-r-full px-4 py-2",
-              project.id === state.projectId && "bg-indigo-300",
+              "flex cursor-pointer items-center gap-2 rounded-r-full px-4 py-2 text-sm font-semibold",
+              project.id === state.projectId && "bg-indigo-500",
             ])}
             onClick={() => handleSelectProject(project.id)}
           >
-            <Layout />
+            <Layout size={16} />
             <p>{project.title}</p>
           </li>
         ))}

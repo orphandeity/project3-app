@@ -5,13 +5,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@radix-ui/react-dialog";
-import { useReducer, useContext } from "react";
+import { useReducer, useContext, useState } from "react";
 import { AppContext } from "~/context/app";
 import { formReducer, initFormData } from "~/utils/reducers";
 import { api } from "~/utils/api";
 
 const CreateTask = () => {
   const { state } = useContext(AppContext); // selected project & dark mode
+
+  const [open, setOpen] = useState<boolean>(false); // modal open & close
 
   const [{ task, subtasks }, dispatch] = useReducer(formReducer, initFormData); // form state
 
@@ -22,17 +24,25 @@ const CreateTask = () => {
     if (!state.projectId) return;
     mutate({ projectId: state.projectId, task, subtasks });
     dispatch({ type: "RESET" });
+    setOpen(false);
   }
 
   return (
-    <Dialog>
+    <Dialog open={open}>
       <DialogTrigger asChild>
-        <button className="rounded-md bg-indigo-300 px-4 py-2 font-semibold text-slate-50 hover:bg-indigo-400">
+        <button
+          onClick={() => setOpen(true)}
+          className="rounded-md bg-indigo-500 px-4 py-2 font-semibold text-slate-50 hover:bg-indigo-600"
+        >
           + New Task
         </button>
       </DialogTrigger>
       <DialogOverlay className="bg-black/05 fixed top-0 left-0 right-0 bottom-0 grid place-content-center overflow-y-auto backdrop-blur-sm">
-        <DialogContent aria-describedby={undefined}>
+        <DialogContent
+          aria-describedby={undefined}
+          onEscapeKeyDown={() => setOpen(false)}
+          onInteractOutside={() => setOpen(false)}
+        >
           <form
             onSubmit={(e) => handleAddTask(e)}
             className="flex max-w-md flex-col gap-4 rounded border bg-white p-8 shadow"

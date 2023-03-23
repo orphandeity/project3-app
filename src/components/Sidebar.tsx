@@ -4,10 +4,10 @@ import { Library, SidebarClose, SidebarOpen } from "lucide-react";
 
 const Sidebar = () => {
   return (
-    <aside className="flex flex-col border-r border-slate-300 bg-slate-200">
+    <aside className="flex flex-col bg-slate-200  dark:bg-slate-800">
       <Link
         href={"/"}
-        className="flex h-16 cursor-default items-center justify-center border-b border-slate-300"
+        className="flex h-16 cursor-default items-center justify-center border-b border-slate-300 dark:border-slate-600"
       >
         <Library size={30} />
         <h1 className="text-3xl font-bold">ProjecT3</h1>
