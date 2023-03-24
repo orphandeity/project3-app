@@ -4,7 +4,7 @@ import { Library, SidebarClose, SidebarOpen } from "lucide-react";
 
 const Sidebar = () => {
   return (
-    <aside className="flex flex-col border-r  border-slate-300 bg-slate-200 dark:border-slate-600 dark:bg-slate-800">
+    <aside className="flex flex-col border-r border-slate-300 bg-slate-200 dark:border-slate-600 dark:bg-slate-700">
       <Link
         href={"/"}
         className="flex h-16 cursor-default items-center justify-center"

@@ -17,7 +17,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({ taskId }) => {
   const completedSubtasks = task?.subtasks.filter((s) => s.isComplete).length;
 
   return (
-    <div className="cursor-pointer rounded bg-white p-4 shadow-md transition-all hover:scale-105 hover:shadow-lg active:scale-95 dark:bg-slate-600">
+    <div className="cursor-pointer rounded bg-white p-4 shadow-md transition-all hover:scale-105 hover:shadow-lg active:scale-95 dark:bg-slate-700">
       {isLoading ? (
         <p className="animate-pulse text-red-400">loading...</p>
       ) : (

@@ -46,7 +46,7 @@ const CreateProject = () => {
           <p>+ Add New Board</p>
         </li>
       </DialogTrigger>
-      <DialogOverlay className="bg-black/05 fixed top-0 left-0 right-0 bottom-0 grid place-content-center overflow-y-auto backdrop-blur-sm">
+      <DialogOverlay className="fixed top-0 left-0 right-0 bottom-0 grid place-content-center overflow-y-auto bg-black/10 backdrop-blur-sm dark:bg-black/20">
         <DialogContent
           aria-describedby={undefined}
           onEscapeKeyDown={() => setOpen(false)}
@@ -54,24 +54,26 @@ const CreateProject = () => {
         >
           <form
             onSubmit={(e) => handleAddProject(e)}
-            className="flex max-w-md flex-col gap-4 rounded bg-white p-8 shadow"
+            className="flex w-[384px] flex-col gap-4 rounded bg-slate-50 p-8 shadow dark:bg-slate-700"
           >
             <DialogTitle>
-              <h2 className="font-semibold">Add New Project</h2>
+              <h2 className="text-lg font-semibold">Add New Project</h2>
             </DialogTitle>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-1">
               <label htmlFor="title">Title</label>
               <input
                 type="text"
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                placeholder="Give your project a name..."
+                className="rounded-md p-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-offset-slate-700"
               />
             </div>
             <button
               type="submit"
               disabled={title.length < 3}
-              className="w-full rounded bg-slate-200 py-2 hover:bg-slate-300 disabled:opacity-20 "
+              className="rounded-full bg-indigo-500 px-4 py-2 text-slate-50 transition-all hover:bg-indigo-600 active:scale-95 disabled:opacity-20"
             >
               + Add New Project
             </button>

@@ -43,14 +43,14 @@ const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
           <TaskCard taskId={task.id} />
         </li>
       </DialogTrigger>
-      <DialogOverlay className="fixed top-0 left-0 right-0 bottom-0 grid place-content-center overflow-y-auto bg-black/10 backdrop-blur-sm">
-        <DialogContent className="flex max-w-xs flex-col gap-4 rounded-md bg-slate-50 p-8">
+      <DialogOverlay className="fixed top-0 left-0 right-0 bottom-0 grid place-content-center overflow-y-auto bg-black/10 backdrop-blur-sm dark:bg-black/20">
+        <DialogContent className="flex w-[384px] flex-col gap-4 rounded-md bg-slate-50 p-8 dark:bg-slate-700">
           <div className="flex flex-col gap-1">
             <DialogTitle>
               <h1 className="text-lg font-semibold">{task.title}</h1>
             </DialogTitle>
             <DialogDescription>
-              <p className="text-xs text-slate-400">{task.description}</p>
+              <p className="text-xs text-slate-500">{task.description}</p>
             </DialogDescription>
           </div>
           <div className="flex flex-col gap-1">
@@ -61,7 +61,7 @@ const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
               {task.subtasks.map((s) => (
                 <li
                   key={s.id}
-                  className="flex items-center gap-2 rounded bg-slate-100 p-2 shadow-inner"
+                  className="flex items-center gap-2 rounded-md bg-slate-100 p-2 shadow-inner dark:bg-slate-800"
                 >
                   <input
                     type="checkbox"
@@ -72,9 +72,11 @@ const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
                         subtaskStatus: !s.isComplete,
                       })
                     }
-                    className="rounded-sm border-slate-200 checked:bg-indigo-300 focus:ring-indigo-300"
+                    className="peer rounded border-slate-200 transition-colors checked:bg-indigo-500 hover:checked:bg-indigo-600 focus:ring-indigo-500 focus:checked:bg-indigo-500 dark:border-slate-600 dark:bg-slate-800 dark:focus:ring-offset-slate-800"
                   />
-                  <p className="text-sm text-slate-600">{s.title}</p>
+                  <p className="text-sm text-slate-600 transition-colors peer-checked:text-slate-500 peer-checked:line-through dark:text-slate-400 dark:peer-checked:text-slate-500">
+                    {s.title}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -89,7 +91,7 @@ const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
                   taskStatus: e.target.value,
                 })
               }
-              className="rounded border-slate-200 bg-slate-50 text-sm text-slate-600 focus:border-slate-200 focus:ring-2 focus:ring-indigo-300 focus:ring-offset-2"
+              className="rounded-md border-slate-200 bg-slate-50 text-sm text-slate-600 focus:border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:focus:border-slate-600 dark:focus:ring-offset-slate-700"
             >
               <option value="TODO">Todo</option>
               <option value="DOING">Doing</option>
