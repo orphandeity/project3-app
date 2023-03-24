@@ -5,16 +5,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@radix-ui/react-dialog";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { api } from "~/utils/api";
 import { Layout } from "lucide-react";
+import { AppContext } from "~/context/app";
 
 const CreateProject = () => {
+  // set selected project
+  const { dispatch } = useContext(AppContext);
+
+  // modal open & close
   const [open, setOpen] = useState<boolean>(false);
 
+  // new project title
   const [title, setTitle] = useState<string>("");
 
-  const { mutate } = api.project.createProject.useMutation(); // create project api
+  // api mutation: create project
+  const { mutate } = api.project.createProject.useMutation({
+    onSuccess(data) {
+      dispatch({ type: "UPDATE_PROJECTID", payload: { projectId: data.id } });
+    },
+  });
 
   function handleAddProject(e: React.FormEvent) {
     e.preventDefault();
@@ -24,7 +35,7 @@ const CreateProject = () => {
   }
 
   return (
-    <Dialog>
+    <Dialog open={open}>
       <DialogTrigger asChild>
         <li
           role="button"

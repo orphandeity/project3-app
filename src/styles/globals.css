@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 label {
-  @apply text-sm font-semibold leading-none;
+  @apply text-xs font-semibold;
 }

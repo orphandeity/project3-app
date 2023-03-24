@@ -11,4 +11,17 @@ export const subtaskRouter = createTRPCRouter({
         },
       });
     }),
+
+  updateSubtask: protectedProcedure
+    .input(z.object({ subtaskId: z.string(), subtaskStatus: z.boolean() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.subtask.update({
+        where: {
+          id: input.subtaskId,
+        },
+        data: {
+          isComplete: input.subtaskStatus,
+        },
+      });
+    }),
 });
