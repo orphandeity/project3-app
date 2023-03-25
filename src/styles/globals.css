@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 label {
-  @apply text-xs font-bold text-slate-600;
+  @apply text-xs font-bold text-slate-600 dark:text-slate-400;
+}
+
+.gradient-1 {
+  @apply bg-gradient-to-t from-indigo-500 to-indigo-400 hover:from-indigo-600 hover:to-indigo-400 dark:from-indigo-600 dark:to-indigo-500 dark:hover:from-indigo-700 dark:hover:to-indigo-500;
 }

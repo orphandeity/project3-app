@@ -30,7 +30,10 @@ const TaskList: React.FunctionComponent<TaskListProps> = ({
     <div>
       <div className="flex items-center gap-2">
         <div className={clsx(["h-4 w-4 rounded-full", statusColor(status)])} />
-        <p id={status} className="my-4 text-xs font-semibold uppercase">
+        <p
+          id={status}
+          className="my-4 text-xs font-bold uppercase text-slate-600 dark:text-slate-400"
+        >
           {status} ({filteredTasks.length})
         </p>
       </div>

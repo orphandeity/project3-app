@@ -15,7 +15,7 @@ const Dashboard: NextPage = () => {
         <title>Dashboard</title>
         <meta name="description" content="Project Dashboard" />
       </Head>
-      <main className="flex min-h-screen bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300">
+      <main className="flex min-h-screen bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-300">
         <Sidebar />
         <ProjectBoard />
       </main>

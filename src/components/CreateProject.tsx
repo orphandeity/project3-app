@@ -40,7 +40,7 @@ const CreateProject = () => {
         <li
           role="button"
           onClick={() => setOpen(true)}
-          className="flex cursor-pointer items-center gap-2 px-4 py-2 text-sm font-semibold text-indigo-500"
+          className="flex cursor-pointer items-center gap-2 p-4 text-sm font-semibold text-indigo-500 drop-shadow transition-all hover:text-indigo-400 active:scale-95 active:drop-shadow-sm"
         >
           <Layout size={16} />
           <p>+ Add New Board</p>
@@ -57,7 +57,9 @@ const CreateProject = () => {
             className="flex w-[384px] flex-col gap-4 rounded bg-slate-50 p-8 shadow-2xl dark:bg-slate-700"
           >
             <DialogTitle>
-              <h2 className="text-xl font-bold">Add New Project</h2>
+              <h2 className="text-xl font-bold dark:text-slate-50">
+                Add New Project
+              </h2>
             </DialogTitle>
             <div className="flex flex-col gap-1">
               <label htmlFor="title">Title</label>

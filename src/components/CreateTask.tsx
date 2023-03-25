@@ -10,20 +10,20 @@ import { AppContext } from "~/context/app";
 import { formReducer, initFormData } from "~/utils/reducers";
 import { api } from "~/utils/api";
 import clsx from "clsx";
-
-// TODO: light mode styles
-
-// TODO: subtask features
-// user should be able to add & remove subtasks
+import { X } from "lucide-react";
 
 const CreateTask = () => {
-  const { state } = useContext(AppContext); // selected project & dark mode
+  // selected project & dark mode
+  const { state } = useContext(AppContext);
 
-  const [open, setOpen] = useState<boolean>(false); // modal open & close
+  // form state
+  const [{ task, subtasks }, dispatch] = useReducer(formReducer, initFormData);
 
-  const [{ task, subtasks }, dispatch] = useReducer(formReducer, initFormData); // form state
+  // modal open & close
+  const [open, setOpen] = useState<boolean>(false);
 
-  const { mutate } = api.task.createTask.useMutation(); // create task
+  // api mutation: create task
+  const { mutate } = api.task.createTask.useMutation();
 
   function handleAddTask(e: React.FormEvent) {
     e.preventDefault();
@@ -33,12 +33,17 @@ const CreateTask = () => {
     setOpen(false);
   }
 
+  function handleAddSubtask(e: React.MouseEvent) {
+    e.preventDefault();
+    dispatch({ type: "SUBTASK_ADD" });
+  }
+
   return (
     <Dialog open={open}>
       <DialogTrigger asChild>
         <button
           onClick={() => setOpen(true)}
-          className="rounded-md bg-indigo-500 px-4 py-2 font-semibold text-slate-50 transition-all hover:bg-indigo-600 active:scale-95"
+          className="gradient-1 rounded-full px-4 py-2 font-semibold text-slate-50 shadow transition-all hover:bg-indigo-600 active:scale-95"
         >
           + New Task
         </button>
@@ -55,7 +60,9 @@ const CreateTask = () => {
             className="flex w-[384px] flex-col gap-4 rounded-md bg-slate-50 p-8 shadow-2xl dark:bg-slate-700"
           >
             <DialogTitle>
-              <h1 className="text-xl font-bold">Add New Task</h1>
+              <h1 className="text-xl font-bold dark:text-slate-50">
+                Add New Task
+              </h1>
             </DialogTitle>
 
             <div className="flex flex-col gap-1">
@@ -64,7 +71,7 @@ const CreateTask = () => {
                 type="text"
                 id="title"
                 placeholder="e.g. Take a coffee break"
-                className="rounded-md border-slate-200 bg-white/60 p-2 text-sm shadow-sm placeholder:text-slate-300 focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50  dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
+                className="rounded-md border-slate-200 bg-slate-50 p-2 text-sm placeholder:text-slate-300 focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50  dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
                 value={task.title}
                 onChange={(e) =>
                   dispatch({
@@ -82,7 +89,7 @@ const CreateTask = () => {
                 cols={30}
                 id="description"
                 placeholder="e.g. It's important to take breaks and nothing beats a nice cup of coffee!"
-                className="rounded-md border-slate-200 bg-white/60 p-2 text-sm shadow-sm placeholder:text-slate-300 focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
+                className="rounded-md border-slate-200 bg-slate-50 p-2 text-sm placeholder:text-slate-300 focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
                 value={task.description}
                 onChange={(e) =>
                   dispatch({
@@ -97,26 +104,38 @@ const CreateTask = () => {
               <label htmlFor="subtasks">Subtasks</label>
               <fieldset id="subtasks" className="flex flex-col gap-2">
                 {subtasks.map((subtask, i) => (
-                  <input
-                    key={i}
-                    type="text"
-                    placeholder={clsx(
-                      i === 0
-                        ? "e.g. Make some coffee"
-                        : "e.g. Pour a cup & enjoy"
-                    )}
-                    className="rounded-md border-slate-200 bg-white/60 p-2 text-sm shadow-sm placeholder:text-slate-300 focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
-                    value={subtask.title}
-                    onChange={(e) =>
-                      dispatch({
-                        type: "SUBTASK_TITLE",
-                        payload: { title: e.target.value, index: i },
-                      })
-                    }
-                  />
+                  <div key={subtask.key} className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      placeholder={clsx(
+                        i === 0
+                          ? "e.g. Make some coffee"
+                          : i === 1
+                          ? "e.g. Pour a cup & enjoy"
+                          : "and then..."
+                      )}
+                      className="flex-1 rounded-md border-slate-200 bg-slate-50 p-2 text-sm placeholder:text-slate-300 focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
+                      value={subtask.title}
+                      onChange={(e) =>
+                        dispatch({
+                          type: "SUBTASK_TITLE",
+                          payload: { key: subtask.key, title: e.target.value },
+                        })
+                      }
+                    />
+                    <X
+                      onClick={() =>
+                        dispatch({
+                          type: "SUBTASK_DELETE",
+                          payload: { key: subtask.key },
+                        })
+                      }
+                      className="text-slate-400 hover:text-red-400"
+                    />
+                  </div>
                 ))}
                 <button
-                  disabled
+                  onClick={(e) => handleAddSubtask(e)}
                   className="rounded-full bg-slate-50 px-4 py-2 text-indigo-500 transition-all hover:bg-indigo-400 hover:text-slate-50 active:scale-95 disabled:opacity-20"
                 >
                   + Add New Subtask
@@ -128,7 +147,7 @@ const CreateTask = () => {
               <label htmlFor="status">Status</label>
               <select
                 id="status"
-                className="rounded-md border-slate-200 bg-slate-50 text-sm text-slate-600 shadow-sm focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
+                className="rounded-md border-slate-200 bg-slate-50 text-sm text-slate-600 focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
                 value={task.status}
                 onChange={(e) =>
                   dispatch({

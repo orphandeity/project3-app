@@ -14,7 +14,7 @@ export const appReducer = (state: AppStateType, action: AppActionType) => {
 // Add New Task
 export const formReducer = (
   state: FormState,
-  action: TaskAction | SubtaskAction | FormResetAction
+  action: TaskAction | SubtaskAction | SubtaskDeleteAction | FormResetAction
 ) => {
   switch (action.type) {
     case "TASK_TITLE":
@@ -35,11 +35,23 @@ export const formReducer = (
     case "SUBTASK_TITLE":
       return {
         ...state,
-        subtasks: state.subtasks.map((subtask, i) => {
-          if (i === action.payload.index)
-            return { title: action.payload.title };
+        subtasks: state.subtasks.map((subtask) => {
+          if (subtask.key === action.payload?.key)
+            return { ...subtask, title: action.payload.title };
           else return subtask;
         }),
+      };
+    case "SUBTASK_ADD":
+      return {
+        ...state,
+        subtasks: [...state.subtasks, { key: crypto.randomUUID(), title: "" }],
+      };
+    case "SUBTASK_DELETE":
+      return {
+        ...state,
+        subtasks: state.subtasks.filter(
+          (subtask) => subtask.key !== action.payload.key
+        ),
       };
     case "RESET":
       return initFormData;
@@ -50,5 +62,8 @@ export const formReducer = (
 
 export const initFormData = {
   task: { title: "", description: "", status: "TODO" },
-  subtasks: [{ title: "" }, { title: "" }],
+  subtasks: [
+    { key: crypto.randomUUID(), title: "" },
+    { key: crypto.randomUUID(), title: "" },
+  ],
 };

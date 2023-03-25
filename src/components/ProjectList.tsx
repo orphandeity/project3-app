@@ -31,21 +31,23 @@ const ProjectList = () => {
 
   return (
     <div>
-      <h2 className="px-4 text-xs font-semibold uppercase">
+      <p className="p-4 text-xs font-bold uppercase text-slate-600 dark:text-slate-400">
         All Boards <span>({projects.length})</span>
-      </h2>
-      <ul className="mr-4 flex max-w-md flex-col gap-2">
+      </p>
+      <ul className="mr-4 flex max-w-md flex-col">
         {projects.map((project) => (
           <li
             key={project.id}
             className={clsx([
-              "flex cursor-pointer items-center gap-2 rounded-r-full px-4 py-2 text-sm font-semibold",
-              project.id === state.projectId && "bg-indigo-500",
+              "flex cursor-pointer items-center gap-2 rounded-r-full px-4 py-4 text-sm font-medium",
+              project.id === state.projectId
+                ? "bg-indigo-400 text-slate-50 dark:bg-indigo-500"
+                : "text-slate-500 hover:bg-indigo-100",
             ])}
             onClick={() => handleSelectProject(project.id)}
           >
             <Layout size={16} />
-            <p>{project.title}</p>
+            <p className="transition-colors">{project.title}</p>
           </li>
         ))}
         <CreateProject />

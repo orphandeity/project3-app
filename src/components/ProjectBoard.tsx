@@ -28,8 +28,10 @@ const ProjectBoard = () => {
 
   return (
     <div className="flex-1">
-      <header className="flex h-16 items-center justify-between bg-slate-200 px-4 dark:bg-slate-700">
-        <h2 className="text-xl font-semibold">{project?.title}</h2>
+      <header className="flex h-16 items-center justify-between bg-slate-100 px-4 dark:bg-slate-700">
+        <h2 className="text-xl font-bold dark:text-slate-50">
+          {project?.title}
+        </h2>
         <CreateTask />
       </header>
 

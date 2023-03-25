@@ -19,6 +19,7 @@ type NewTaskState = {
 };
 
 type NewSubtaskState = {
+  key: string;
   title: string;
 };
 
@@ -37,6 +38,11 @@ type TaskAction = {
 };
 
 type SubtaskAction = {
-  type: "SUBTASK_TITLE";
-  payload: { title: string; index: number };
+  type: "SUBTASK_TITLE" | "SUBTASK_ADD";
+  payload?: { key: string; title: string };
+};
+
+type SubtaskDeleteAction = {
+  type: "SUBTASK_DELETE";
+  payload: { key: string };
 };
