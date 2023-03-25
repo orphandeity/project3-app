@@ -54,10 +54,10 @@ const CreateProject = () => {
         >
           <form
             onSubmit={(e) => handleAddProject(e)}
-            className="flex w-[384px] flex-col gap-4 rounded bg-slate-50 p-8 shadow dark:bg-slate-700"
+            className="flex w-[384px] flex-col gap-4 rounded bg-slate-50 p-8 shadow-2xl dark:bg-slate-700"
           >
             <DialogTitle>
-              <h2 className="text-lg font-semibold">Add New Project</h2>
+              <h2 className="text-xl font-bold">Add New Project</h2>
             </DialogTitle>
             <div className="flex flex-col gap-1">
               <label htmlFor="title">Title</label>
@@ -67,7 +67,7 @@ const CreateProject = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Give your project a name..."
-                className="rounded-md p-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-offset-slate-700"
+                className="rounded-md border-slate-200 bg-white/60 p-2 shadow-sm placeholder:text-slate-300 focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
               />
             </div>
             <button

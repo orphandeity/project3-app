@@ -52,10 +52,10 @@ const CreateTask = () => {
         >
           <form
             onSubmit={(e) => handleAddTask(e)}
-            className="flex w-[384px] flex-col gap-4 rounded-md bg-slate-50 p-8 dark:bg-slate-700"
+            className="flex w-[384px] flex-col gap-4 rounded-md bg-slate-50 p-8 shadow-2xl dark:bg-slate-700"
           >
             <DialogTitle>
-              <h1 className="text-lg font-semibold">Add New Task</h1>
+              <h1 className="text-xl font-bold">Add New Task</h1>
             </DialogTitle>
 
             <div className="flex flex-col gap-1">
@@ -64,7 +64,7 @@ const CreateTask = () => {
                 type="text"
                 id="title"
                 placeholder="e.g. Take a coffee break"
-                className="rounded-md p-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-offset-slate-700"
+                className="rounded-md border-slate-200 bg-white/60 p-2 text-sm shadow-sm placeholder:text-slate-300 focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50  dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
                 value={task.title}
                 onChange={(e) =>
                   dispatch({
@@ -82,7 +82,7 @@ const CreateTask = () => {
                 cols={30}
                 id="description"
                 placeholder="e.g. It's important to take breaks and nothing beats a nice cup of coffee!"
-                className="rounded-md p-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-offset-slate-700"
+                className="rounded-md border-slate-200 bg-white/60 p-2 text-sm shadow-sm placeholder:text-slate-300 focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
                 value={task.description}
                 onChange={(e) =>
                   dispatch({
@@ -105,7 +105,7 @@ const CreateTask = () => {
                         ? "e.g. Make some coffee"
                         : "e.g. Pour a cup & enjoy"
                     )}
-                    className="rounded-md p-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-offset-slate-700"
+                    className="rounded-md border-slate-200 bg-white/60 p-2 text-sm shadow-sm placeholder:text-slate-300 focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:border-slate-600 dark:bg-slate-700 dark:placeholder:text-slate-500 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
                     value={subtask.title}
                     onChange={(e) =>
                       dispatch({
@@ -128,7 +128,7 @@ const CreateTask = () => {
               <label htmlFor="status">Status</label>
               <select
                 id="status"
-                className="rounded-md border-slate-200 bg-slate-50 text-sm text-slate-600 focus:border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:focus:border-slate-600 dark:focus:ring-offset-slate-700"
+                className="rounded-md border-slate-200 bg-slate-50 text-sm text-slate-600 shadow-sm focus:border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300 dark:focus:border-slate-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-700"
                 value={task.status}
                 onChange={(e) =>
                   dispatch({
