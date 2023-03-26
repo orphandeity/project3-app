@@ -6,7 +6,7 @@ const UpdateTask = ({ taskId }: { taskId: string }) => {
   const utils = api.useContext();
 
   // api mutation: delete task
-  const { mutate: deleteTask } = api.task.deleteTask.useMutation({
+  const { mutate: deleteTask } = api.task.deleteTaskByTaskId.useMutation({
     onSuccess() {
       void utils.task.getTasksByProjectId.invalidate();
     },
@@ -14,7 +14,11 @@ const UpdateTask = ({ taskId }: { taskId: string }) => {
 
   // api mutation: delete subtasks
   const { mutate: deleteSubtasks } =
-    api.subtask.deleteSubtasksByTaskId.useMutation();
+    api.subtask.deleteSubtasksByTaskId.useMutation({
+      onSuccess() {
+        void utils.subtask.getSubtasks.invalidate();
+      },
+    });
 
   function handleDeleteTask() {
     deleteSubtasks({ taskId });
@@ -28,7 +32,7 @@ const UpdateTask = ({ taskId }: { taskId: string }) => {
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content side="right" sideOffset={8}>
-          <div className="rounded-md bg-white p-2 text-sm shadow-md">
+          <div className="rounded-md bg-white p-4 text-sm shadow-md dark:bg-slate-200">
             <button
               className="text-red-400 hover:text-red-500"
               onClick={handleDeleteTask}

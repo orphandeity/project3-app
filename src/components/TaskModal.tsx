@@ -56,7 +56,7 @@ const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
       <DialogOverlay className="fixed top-0 left-0 right-0 bottom-0 grid place-content-center overflow-y-auto bg-black/10 backdrop-blur-sm dark:bg-black/20">
         <DialogContent className="flex w-[384px] flex-col gap-4 rounded-md bg-slate-50 p-8 shadow-2xl dark:bg-slate-700">
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-start gap-2">
               <DialogTitle asChild>
                 <h1 className="flex-1 text-xl font-bold dark:text-slate-50">
                   {task.title}

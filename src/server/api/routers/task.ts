@@ -71,7 +71,7 @@ export const taskRouter = createTRPCRouter({
       });
     }),
 
-  deleteTask: protectedProcedure
+  deleteTaskByTaskId: protectedProcedure
     .input(z.object({ taskId: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.task.delete({
@@ -80,6 +80,16 @@ export const taskRouter = createTRPCRouter({
         },
         include: {
           subtasks: true,
+        },
+      });
+    }),
+
+  deleteTasksByProjectId: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.task.deleteMany({
+        where: {
+          projectId: input.projectId,
         },
       });
     }),

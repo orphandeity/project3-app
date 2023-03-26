@@ -23,6 +23,14 @@ export const projectRouter = createTRPCRouter({
       });
     }),
 
+  getProjectByUserId: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.project.findFirst({
+      where: {
+        userId: ctx.session.user.id,
+      },
+    });
+  }),
+
   createProject: protectedProcedure
     .input(z.object({ title: z.string() }))
     .mutation(({ ctx, input }) => {
@@ -30,6 +38,16 @@ export const projectRouter = createTRPCRouter({
         data: {
           userId: ctx.session.user.id,
           title: input.title,
+        },
+      });
+    }),
+
+  deleteProject: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.project.delete({
+        where: {
+          id: input.projectId,
         },
       });
     }),
