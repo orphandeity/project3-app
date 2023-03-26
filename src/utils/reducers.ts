@@ -1,4 +1,5 @@
 import { randomUUID } from "crypto";
+import { v4 as uuid } from "uuid";
 
 // App Settings
 export const appReducer = (state: AppStateType, action: AppActionType) => {
@@ -46,7 +47,7 @@ export const formReducer = (
     case "SUBTASK_ADD":
       return {
         ...state,
-        subtasks: [...state.subtasks, { key: crypto.randomUUID(), title: "" }],
+        subtasks: [...state.subtasks, { key: randomUUID(), title: "" }],
       };
     case "SUBTASK_DELETE":
       return {
