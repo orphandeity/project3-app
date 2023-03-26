@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ProjectList from "./ProjectList";
 import { Library, SidebarClose, SidebarOpen } from "lucide-react";
+import Darkmode from "./Darkmode";
 
 const Sidebar = () => {
   return (
@@ -19,7 +20,7 @@ const Sidebar = () => {
            * TODO: dark mode toggle
            * TODO: hide sidebar button
            */}
-          <SidebarClose />
+          <Darkmode />
         </menu>
       </div>
     </aside>

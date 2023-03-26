@@ -1,5 +1,6 @@
 import { createContext, useReducer } from "react";
 import { appReducer } from "../utils/reducers";
+import clsx from "clsx";
 
 const AppContext = createContext<{
   state: AppStateType;
@@ -19,7 +20,7 @@ const AppProvider: React.FunctionComponent<React.PropsWithChildren> = ({
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>
-      {children}
+      <div className={clsx(state.darkMode ? "dark" : "")}>{children}</div>
     </AppContext.Provider>
   );
 };

@@ -31,7 +31,7 @@ const ProjectList = () => {
 
   return (
     <div>
-      <p className="p-4 text-xs font-bold uppercase text-slate-600 dark:text-slate-400">
+      <p className="p-4 text-xs font-bold uppercase text-slate-600 dark:text-slate-500">
         All Boards <span>({projects.length})</span>
       </p>
       <ul className="mr-4 flex max-w-md flex-col">
@@ -42,7 +42,7 @@ const ProjectList = () => {
               "flex cursor-pointer items-center gap-2 rounded-r-full px-4 py-4 text-sm font-medium",
               project.id === state.projectId
                 ? "bg-indigo-400 text-slate-50 dark:bg-indigo-500"
-                : "text-slate-500 hover:bg-indigo-100",
+                : "text-slate-500 hover:bg-indigo-100 dark:text-slate-400",
             ])}
             onClick={() => handleSelectProject(project.id)}
           >
