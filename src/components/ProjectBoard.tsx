@@ -3,7 +3,7 @@ import { AppContext } from "~/context/app";
 import { api } from "~/utils/api";
 import CreateTask from "./CreateTask";
 import TaskList from "./TaskList";
-import UpdateProject from "./updateProject";
+import UpdateProject from "./UpdateProject";
 
 const ProjectBoard = () => {
   const { state, dispatch } = useContext(AppContext);

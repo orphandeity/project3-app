@@ -7,7 +7,10 @@ import Sidebar from "~/components/Sidebar";
 const Dashboard: NextPage = () => {
   const { data: sessionData } = useSession();
 
-  if (!sessionData) return <div>who are you?</div>;
+  if (!sessionData)
+    return (
+      <div className="py-16 text-center text-7xl font-black">who are you?</div>
+    );
 
   return (
     <>
