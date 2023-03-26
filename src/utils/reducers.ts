@@ -1,4 +1,4 @@
-import * as crypto from "crypto";
+import { nanoid } from "nanoid";
 
 // App Settings
 export const appReducer = (state: AppStateType, action: AppActionType) => {
@@ -46,7 +46,7 @@ export const formReducer = (
     case "SUBTASK_ADD":
       return {
         ...state,
-        subtasks: [...state.subtasks, { key: crypto.randomUUID(), title: "" }],
+        subtasks: [...state.subtasks, { key: nanoid(), title: "" }],
       };
     case "SUBTASK_DELETE":
       return {
@@ -65,7 +65,7 @@ export const formReducer = (
 export const initFormData = {
   task: { title: "", description: "", status: "TODO" },
   subtasks: [
-    { key: crypto.randomUUID(), title: "" },
-    { key: crypto.randomUUID(), title: "" },
+    { key: nanoid(), title: "" },
+    { key: nanoid(), title: "" },
   ],
 };
