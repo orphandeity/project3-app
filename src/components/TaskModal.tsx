@@ -8,7 +8,7 @@ import {
 } from "@radix-ui/react-dialog";
 import TaskCard from "./TaskCard";
 import { api } from "~/utils/api";
-import { Subtask, Task } from "@prisma/client";
+import UpdateTask from "./UpdateTask";
 
 // TODO: prevent query invalidation
 // currently, queries are invalidated after all mutations &
@@ -45,12 +45,15 @@ const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
       </DialogTrigger>
       <DialogOverlay className="fixed top-0 left-0 right-0 bottom-0 grid place-content-center overflow-y-auto bg-black/10 backdrop-blur-sm dark:bg-black/20">
         <DialogContent className="flex w-[384px] flex-col gap-4 rounded-md bg-slate-50 p-8 shadow-2xl dark:bg-slate-700">
-          <div className="flex flex-col gap-1">
-            <DialogTitle>
-              <h1 className="text-xl font-bold dark:text-slate-50">
-                {task.title}
-              </h1>
-            </DialogTitle>
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-2">
+              <DialogTitle asChild>
+                <h1 className="flex-1 text-xl font-bold dark:text-slate-50">
+                  {task.title}
+                </h1>
+              </DialogTitle>
+              <UpdateTask taskId={taskId} />
+            </div>
             <DialogDescription>
               <p className="text-sm text-slate-400">{task.description}</p>
             </DialogDescription>

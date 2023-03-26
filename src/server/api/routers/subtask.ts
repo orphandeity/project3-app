@@ -24,4 +24,14 @@ export const subtaskRouter = createTRPCRouter({
         },
       });
     }),
+
+  deleteSubtasksByTaskId: protectedProcedure
+    .input(z.object({ taskId: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.subtask.deleteMany({
+        where: {
+          taskId: input.taskId,
+        },
+      });
+    }),
 });

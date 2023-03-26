@@ -2,7 +2,6 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const taskRouter = createTRPCRouter({
-  // Get tasks by project
   getTasksByProjectId: protectedProcedure
     .input(z.object({ projectId: z.string() }))
     .query(({ ctx, input }) => {
@@ -13,7 +12,6 @@ export const taskRouter = createTRPCRouter({
       });
     }),
 
-  // Get task by id
   getTaskByTaskId: protectedProcedure
     .input(z.object({ taskId: z.string() }))
     .query(({ ctx, input }) => {
@@ -27,7 +25,6 @@ export const taskRouter = createTRPCRouter({
       });
     }),
 
-  // Add new task
   createTask: protectedProcedure
     .input(
       z.object({
@@ -70,6 +67,19 @@ export const taskRouter = createTRPCRouter({
         },
         data: {
           status: input.taskStatus,
+        },
+      });
+    }),
+
+  deleteTask: protectedProcedure
+    .input(z.object({ taskId: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.task.delete({
+        where: {
+          id: input.taskId,
+        },
+        include: {
+          subtasks: true,
         },
       });
     }),

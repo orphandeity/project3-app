@@ -29,7 +29,6 @@ const CreateTask = () => {
     e.preventDefault();
     if (!state.projectId) return;
     mutate({ projectId: state.projectId, task, subtasks });
-    dispatch({ type: "RESET" });
     setOpen(false);
   }
 
@@ -39,7 +38,7 @@ const CreateTask = () => {
   }
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={() => dispatch({ type: "RESET" })}>
       <DialogTrigger asChild>
         <button
           onClick={() => setOpen(true)}
