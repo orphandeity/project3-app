@@ -42,7 +42,7 @@ const ProjectList = () => {
               "flex cursor-pointer items-center gap-2 rounded-r-full px-4 py-4 text-sm font-medium",
               project.id === state.projectId
                 ? "bg-indigo-400 text-slate-50 dark:bg-indigo-500"
-                : "text-slate-500 hover:bg-indigo-100 dark:text-slate-400",
+                : "text-slate-500 hover:bg-indigo-100 dark:text-slate-400 dark:hover:bg-indigo-700/20 dark:hover:text-slate-300",
             ])}
             onClick={() => handleSelectProject(project.id)}
           >

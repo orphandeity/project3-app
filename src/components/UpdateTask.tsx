@@ -3,8 +3,14 @@ import { MoreVertical } from "lucide-react";
 import { api } from "~/utils/api";
 
 const UpdateTask = ({ taskId }: { taskId: string }) => {
+  const utils = api.useContext();
+
   // api mutation: delete task
-  const { mutate: deleteTask } = api.task.deleteTask.useMutation();
+  const { mutate: deleteTask } = api.task.deleteTask.useMutation({
+    onSuccess() {
+      void utils.task.getTasksByProjectId.invalidate();
+    },
+  });
 
   // api mutation: delete subtasks
   const { mutate: deleteSubtasks } =

@@ -21,9 +21,13 @@ const CreateProject = () => {
   const [title, setTitle] = useState<string>("");
 
   // api mutation: create project
+
+  const utils = api.useContext();
+
   const { mutate } = api.project.createProject.useMutation({
     onSuccess(data) {
       dispatch({ type: "UPDATE_PROJECTID", payload: { projectId: data.id } });
+      void utils.project.invalidate();
     },
   });
 

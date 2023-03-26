@@ -19,14 +19,24 @@ interface TaskModalProps {
 }
 
 const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
+  const utils = api.useContext();
+
   // api query: get task
   const { data: task } = api.task.getTaskByTaskId.useQuery({ taskId });
 
   // api mutation: update subtask
-  const { mutate: updateSubtask } = api.subtask.updateSubtask.useMutation();
+  const { mutate: updateSubtask } = api.subtask.updateSubtask.useMutation({
+    onSuccess() {
+      void utils.task.getTaskByTaskId.invalidate();
+    },
+  });
 
   // api mutation: update task status
-  const { mutate: updateTaskStatus } = api.task.updateTaskStatus.useMutation();
+  const { mutate: updateTaskStatus } = api.task.updateTaskStatus.useMutation({
+    onSuccess() {
+      void utils.task.getTaskByTaskId.invalidate();
+    },
+  });
 
   if (!task) return null;
 

@@ -23,7 +23,12 @@ const CreateTask = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   // api mutation: create task
-  const { mutate } = api.task.createTask.useMutation();
+  const utils = api.useContext();
+  const { mutate } = api.task.createTask.useMutation({
+    onSuccess() {
+      void utils.task.getTasksByProjectId.invalidate();
+    },
+  });
 
   function handleAddTask(e: React.FormEvent) {
     e.preventDefault();
@@ -59,9 +64,9 @@ const CreateTask = () => {
             className="flex w-[384px] flex-col gap-4 rounded-md bg-slate-50 p-8 shadow-2xl dark:bg-slate-700"
           >
             <DialogTitle>
-              <h1 className="text-xl font-bold dark:text-slate-50">
+              <p className="text-xl font-bold dark:text-slate-50">
                 Add New Task
-              </h1>
+              </p>
             </DialogTitle>
 
             <div className="flex flex-col gap-1">
