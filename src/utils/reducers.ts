@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 // App Settings
 export const appReducer = (state: AppStateType, action: AppActionType) => {
   const { type, payload } = action;
@@ -63,7 +65,7 @@ export const formReducer = (
 export const initFormData = {
   task: { title: "", description: "", status: "TODO" },
   subtasks: [
-    { key: crypto.randomUUID(), title: "" },
-    { key: crypto.randomUUID(), title: "" },
+    { key: randomUUID(), title: "" },
+    { key: randomUUID(), title: "" },
   ],
 };
