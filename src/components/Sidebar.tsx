@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [parent, enableAnimations] = useAutoAnimate();
 
   return (
