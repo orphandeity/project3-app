@@ -25,7 +25,7 @@ const ProjectBoard = () => {
   });
 
   return (
-    <div className="flex-1">
+    <div className="w-full">
       <header className="flex h-16 items-center justify-between bg-slate-100 px-4 dark:bg-slate-700">
         <div className="flex items-center gap-2">
           <UpdateProject projectId={state.projectId} />
