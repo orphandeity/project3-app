@@ -9,10 +9,7 @@ import {
 import TaskCard from "./TaskCard";
 import { api } from "~/utils/api";
 import UpdateTask from "./UpdateTask";
-
-// TODO: prevent query invalidation
-// currently, queries are invalidated after all mutations &
-// this is causing subtasks to change order on update.
+import SubtaskList from "./SubtaskList";
 
 interface TaskModalProps {
   taskId: string;
@@ -24,13 +21,6 @@ const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
   // api query: get task
   const { data: task } = api.task.getTaskByTaskId.useQuery({ taskId });
 
-  // api mutation: update subtask
-  const { mutate: updateSubtask } = api.subtask.updateSubtask.useMutation({
-    onSuccess() {
-      void utils.task.getTaskByTaskId.invalidate();
-    },
-  });
-
   // api mutation: update task status
   const { mutate: updateTaskStatus } = api.task.updateTaskStatus.useMutation({
     onSuccess() {
@@ -39,12 +29,6 @@ const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
   });
 
   if (!task) return null;
-
-  // subtask stats
-  const subtasksComplete = task.subtasks.filter(
-    (subtask) => subtask.isComplete
-  ).length;
-  const subtasksTotal = task.subtasks.length;
 
   return (
     <Dialog>
@@ -68,34 +52,7 @@ const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
               <p className="text-sm text-slate-400">{task.description}</p>
             </DialogDescription>
           </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-xs font-bold text-slate-600 dark:text-slate-400">
-              Subtasks ({subtasksComplete} of {subtasksTotal})
-            </p>
-            <ul className="flex flex-col gap-2">
-              {task.subtasks.map((s) => (
-                <li
-                  key={s.id}
-                  className="flex items-center gap-2 rounded-md bg-slate-100 p-2 shadow-inner dark:bg-slate-800"
-                >
-                  <input
-                    type="checkbox"
-                    checked={s.isComplete}
-                    onChange={() =>
-                      updateSubtask({
-                        subtaskId: s.id,
-                        subtaskStatus: !s.isComplete,
-                      })
-                    }
-                    className="peer rounded border-slate-200 transition-colors checked:bg-indigo-400 hover:checked:bg-indigo-500 focus:ring-indigo-400 focus:ring-offset-slate-100 focus:checked:bg-indigo-400 dark:border-slate-600 dark:bg-slate-800 dark:checked:bg-indigo-500 dark:hover:checked:bg-indigo-600 dark:focus:ring-indigo-500 dark:focus:ring-offset-slate-800 dark:focus:checked:bg-indigo-500"
-                  />
-                  <p className="text-sm text-slate-500 transition-colors peer-checked:text-slate-400 peer-checked:line-through dark:text-slate-400 dark:peer-checked:text-slate-500">
-                    {s.title}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <SubtaskList taskId={task.id} />
           <div className="flex flex-col gap-1">
             <label htmlFor="status">Status</label>
             <select
