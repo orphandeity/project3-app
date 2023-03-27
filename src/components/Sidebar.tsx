@@ -12,7 +12,7 @@ const Sidebar = () => {
   return (
     <aside
       ref={parent}
-      className="flex flex-col justify-end border-r border-slate-300 bg-slate-100 transition-transform dark:border-slate-600 dark:bg-slate-700"
+      className="flex min-w-fit flex-col justify-end border-r border-slate-300 bg-slate-100 transition-transform dark:border-slate-600 dark:bg-slate-700"
     >
       {open ? (
         <>
@@ -33,7 +33,7 @@ const Sidebar = () => {
               <div className="flex items-center justify-between">
                 <span>Hide Sidebar</span>
                 <SidebarClose
-                  className="text-slate-300 transition-colors hover:text-slate-400"
+                  className="text-slate-300 transition-colors hover:text-slate-400 dark:text-slate-500 dark:hover:text-slate-400"
                   onClick={() => setOpen(false)}
                 />
               </div>

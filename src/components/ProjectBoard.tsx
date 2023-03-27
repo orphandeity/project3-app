@@ -9,7 +9,11 @@ const ProjectBoard = () => {
   const { state, dispatch } = useContext(AppContext);
 
   if (!state.projectId)
-    return <p>please select a project or create a new one</p>;
+    return (
+      <div className="grid w-full place-content-center text-2xl font-semibold text-slate-400 dark:text-slate-600">
+        <p>Please select a project or create a new one.</p>
+      </div>
+    );
 
   // Get Project
   const { data: project } = api.project.getProjectById.useQuery(
