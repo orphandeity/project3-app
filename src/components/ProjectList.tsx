@@ -1,9 +1,10 @@
 import { useContext } from "react";
-import { AppContext } from "~/context/app";
-import { api } from "~/utils/api";
-import { Layout } from "lucide-react";
-import { clsx } from "clsx";
 import CreateProject from "./CreateProject";
+import { AppContext } from "~/context/app";
+import { Layout } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import { clsx } from "clsx";
+import { api } from "~/utils/api";
 
 const ProjectList = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -17,12 +18,21 @@ const ProjectList = () => {
   } = api.project.getAllProjects.useQuery();
 
   if (isLoading) {
-    return <p className="animate-pulse text-emerald-400">loading...</p>;
+    return (
+      <Loader2
+        className="mx-auto my-8 animate-spin text-teal-200 transition-transform dark:text-teal-300"
+        size={64}
+      />
+    );
   }
 
   if (isError) {
     console.error(error);
-    return <p className="animate-pulse text-red-400">there was an error</p>;
+    return (
+      <p className="animate-pulse text-center text-red-400">
+        😢 something went wrong
+      </p>
+    );
   }
 
   function handleSelectProject(projectId: string) {

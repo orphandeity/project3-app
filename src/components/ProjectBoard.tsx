@@ -18,12 +18,9 @@ const ProjectBoard = () => {
 
   // Get Project
   const { data: project, isLoading: projectLoading } =
-    api.project.getProjectById.useQuery(
-      {
-        projectId: state.projectId,
-      }
-      // { refetchOnMount: true }
-    );
+    api.project.getProjectById.useQuery({
+      projectId: state.projectId,
+    });
 
   // Get all tasks query
   const { data: tasks, isLoading: tasksLoading } =
