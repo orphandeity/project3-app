@@ -21,7 +21,10 @@ const SubtaskCard = ({
   const utils = api.useContext();
   const { mutate: updateSubtask } = api.subtask.updateSubtask.useMutation({
     onSuccess() {
+      // update cache
       void utils.subtask.getSubtasks.setData({ taskId }, updateFn);
+      // invalidate task query
+      void utils.task.getTaskByTaskId.invalidate({ taskId });
     },
   });
 
