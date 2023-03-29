@@ -1,14 +1,25 @@
 import { api } from "~/utils/api";
 import SubtaskCard from "./SubtaskCard";
+import { Loader2 } from "lucide-react";
 
 const SubtaskList = ({ taskId }: { taskId: string }) => {
   // api query: get subtasks
-  const { data: subtasks } = api.subtask.getSubtasks.useQuery({ taskId });
+  const { data: subtasks, isLoading } = api.subtask.getSubtasks.useQuery({
+    taskId,
+  });
 
   // subtask stats
   const subtasksComplete = subtasks?.filter(
     (subtask) => subtask.isComplete
   ).length;
+
+  if (isLoading)
+    return (
+      <Loader2
+        className="mx-auto my-8 animate-spin text-teal-200 transition-transform dark:text-teal-300"
+        size={64}
+      />
+    );
 
   return (
     <div className="flex flex-col gap-1">

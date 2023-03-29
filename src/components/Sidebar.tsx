@@ -7,7 +7,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
-  const [parent, enableAnimations] = useAutoAnimate();
+  const [parent] = useAutoAnimate();
 
   return (
     <aside
@@ -18,7 +18,7 @@ const Sidebar = () => {
         <>
           <Link
             href={"/"}
-            className="flex h-16 cursor-default items-center justify-center dark:text-slate-50"
+            className="flex h-16 cursor-default items-center justify-center px-8 dark:text-slate-50"
           >
             <Library size={30} />
             <h1 className="text-3xl font-bold">ProjecT3</h1>
