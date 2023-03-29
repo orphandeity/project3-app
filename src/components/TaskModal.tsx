@@ -24,7 +24,7 @@ const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
   // api mutation: update task status
   const { mutate: updateTaskStatus } = api.task.updateTaskStatus.useMutation({
     onSuccess() {
-      void utils.task.getTaskByTaskId.invalidate();
+      void utils.task.invalidate();
     },
   });
 
@@ -57,6 +57,7 @@ const TaskModal: React.FunctionComponent<TaskModalProps> = ({ taskId }) => {
             <label htmlFor="status">Status</label>
             <select
               id="status"
+              defaultValue={task.status}
               onChange={(e) =>
                 updateTaskStatus({
                   taskId: task.id,
