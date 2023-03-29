@@ -1,10 +1,13 @@
 import * as Popover from "@radix-ui/react-popover";
 import { MoreVertical } from "lucide-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "~/context/app";
 import { api } from "~/utils/api";
 
 const UpdateProject = ({ projectId }: { projectId: string }) => {
+  const [open, setOpen] = useState(false);
+
+  // update selected project
   const { state, dispatch } = useContext(AppContext);
 
   const utils = api.useContext();
@@ -38,16 +41,20 @@ const UpdateProject = ({ projectId }: { projectId: string }) => {
     deleteSubtasks({ projectId });
     deleteTasks({ projectId });
     deleteProject({ projectId });
-    if (project) {
+    // reset selected project
+    if (project && project.id !== state.projectId) {
       dispatch({
         type: "UPDATE_PROJECTID",
         payload: { projectId: project.id },
       });
+    } else {
+      dispatch({ type: "UPDATE_PROJECTID", payload: { projectId: undefined } });
     }
+    setOpen(false);
   }
 
   return (
-    <Popover.Root>
+    <Popover.Root open={open} onOpenChange={() => setOpen(true)}>
       <Popover.Trigger asChild>
         <MoreVertical className="cursor-pointer text-slate-300 transition-colors hover:text-slate-400 active:text-slate-400" />
       </Popover.Trigger>

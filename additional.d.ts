@@ -6,7 +6,7 @@ type AppStateType = {
 
 type AppActionType = {
   type: "UPDATE_PROJECTID" | "UPDATE_DARKMODE";
-  payload?: { projectId: string };
+  payload?: { projectId: string | undefined };
 };
 
 // Component Props

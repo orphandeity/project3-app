@@ -21,7 +21,6 @@ const CreateProject = () => {
   const [title, setTitle] = useState<string>("");
 
   // api mutation: create project
-
   const utils = api.useContext();
 
   const { mutate } = api.project.createProject.useMutation({
@@ -30,6 +29,10 @@ const CreateProject = () => {
       void utils.project.invalidate();
     },
   });
+
+  const { data: projects } = api.project.getAllProjects.useQuery();
+
+  const newUser = projects?.length === 0;
 
   function handleAddProject(e: React.FormEvent) {
     e.preventDefault();
@@ -41,14 +44,23 @@ const CreateProject = () => {
   return (
     <Dialog open={open}>
       <DialogTrigger asChild>
-        <li
-          role="button"
-          onClick={() => setOpen(true)}
-          className="flex cursor-pointer items-center gap-2 p-4 text-sm font-semibold text-indigo-500 drop-shadow transition-all hover:text-indigo-400 active:scale-95 active:drop-shadow-sm"
-        >
-          <Layout size={16} />
-          <p>+ Add New Board</p>
-        </li>
+        {newUser ? (
+          <button
+            onClick={() => setOpen(true)}
+            className="gradient-1 ml-4 rounded-full px-4 py-2 font-semibold text-slate-50 shadow transition-all hover:bg-indigo-600 active:scale-95"
+          >
+            Start here!
+          </button>
+        ) : (
+          <li
+            role="button"
+            onClick={() => setOpen(true)}
+            className="flex cursor-pointer items-center gap-2 p-4 text-sm font-semibold text-indigo-500 drop-shadow transition-all hover:text-indigo-400 active:scale-95 active:drop-shadow-sm"
+          >
+            <Layout size={16} />
+            <p>+ Add New Board</p>
+          </li>
+        )}
       </DialogTrigger>
       <DialogOverlay className="fixed top-0 left-0 right-0 bottom-0 grid place-content-center overflow-y-auto bg-black/10 backdrop-blur-sm dark:bg-black/20">
         <DialogContent
