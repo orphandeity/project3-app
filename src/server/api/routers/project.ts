@@ -7,9 +7,9 @@ export const projectRouter = createTRPCRouter({
       where: {
         userId: ctx.session.user.id,
       },
-      include: {
-        tasks: true,
-      },
+      // include: {
+      //   tasks: true,
+      // },
     });
   }),
 
