@@ -54,15 +54,24 @@ const UpdateProject = ({ projectId }: { projectId: string }) => {
   }
 
   return (
-    <Popover.Root open={open} onOpenChange={() => setOpen(true)}>
+    <Popover.Root open={open} onOpenChange={() => setOpen(!open)}>
       <Popover.Trigger asChild>
         <MoreVertical className="cursor-pointer text-slate-300 transition-colors hover:text-slate-400 active:text-slate-400" />
       </Popover.Trigger>
       <Popover.Portal>
-        <Popover.Content side="bottom" sideOffset={8}>
-          <div className="flex flex-col gap-2 rounded-md bg-white p-4 text-sm shadow-md dark:bg-slate-200">
+        <Popover.Content
+          side="bottom"
+          sideOffset={8}
+          onEscapeKeyDown={() => setOpen(false)}
+          onPointerDownOutside={() => setOpen(false)}
+          onInteractOutside={() => setOpen(false)}
+        >
+          <div className="flex flex-col gap-4 rounded-md bg-white p-4 text-sm shadow-md dark:bg-slate-200">
+            <p className="text-slate-600">
+              do you want to delete this project?
+            </p>
             <button
-              className="text-red-400 hover:text-red-500"
+              className="gradient-danger rounded-full px-4 py-2 text-slate-50 shadow focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
               onClick={handleDeleteProject}
             >
               Delete Project

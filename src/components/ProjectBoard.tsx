@@ -5,7 +5,6 @@ import CreateTask from "./CreateTask";
 import TaskList from "./TaskList";
 import UpdateProject from "./UpdateProject";
 import { Loader2 } from "lucide-react";
-import { DndContext } from "@dnd-kit/core";
 
 const ProjectBoard = () => {
   const { state } = useContext(AppContext); // selected project
@@ -37,15 +36,14 @@ const ProjectBoard = () => {
             loading...
           </p>
         ) : (
-          <div className="flex items-center gap-2">
-            <UpdateProject projectId={state.projectId} />
-            <h2 className="text-xl font-bold dark:text-slate-50">
-              {project?.title}
-            </h2>
-          </div>
+          <h2 className="text-xl font-bold dark:text-slate-50">
+            {project?.title}
+          </h2>
         )}
-
-        <CreateTask />
+        <div className="flex items-center gap-2">
+          <CreateTask />
+          <UpdateProject projectId={state.projectId} />
+        </div>
       </header>
 
       {tasksLoading ? (
@@ -55,13 +53,11 @@ const ProjectBoard = () => {
         />
       ) : (
         tasks && (
-          <DndContext>
-            <div className="mx-4 grid grid-cols-3 gap-4">
-              <TaskList tasks={tasks} status="TODO" />
-              <TaskList tasks={tasks} status="DOING" />
-              <TaskList tasks={tasks} status="DONE" />
-            </div>
-          </DndContext>
+          <div className="mx-4 grid grid-cols-3 gap-4">
+            <TaskList tasks={tasks} status="TODO" />
+            <TaskList tasks={tasks} status="DOING" />
+            <TaskList tasks={tasks} status="DONE" />
+          </div>
         )
       )}
     </div>

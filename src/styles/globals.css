@@ -9,3 +9,7 @@ label {
 .gradient-1 {
   @apply bg-gradient-to-t from-indigo-500 to-indigo-400 hover:from-indigo-600 hover:to-indigo-400 dark:from-indigo-600 dark:to-indigo-500 dark:hover:from-indigo-700 dark:hover:to-indigo-500;
 }
+
+.gradient-danger {
+  @apply bg-gradient-to-t from-red-500 to-red-400 hover:from-red-600 hover:to-red-400 dark:from-red-600 dark:to-red-500 dark:hover:from-red-700 dark:hover:to-red-500;
+}
